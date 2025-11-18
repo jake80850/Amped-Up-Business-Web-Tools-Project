@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMPED UP 26</title>
+
+  <!-- Google Fonts: brushy title + clean UI text -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f0f12;
+      --card: #15161a;
+      --text: #e7e7ea;
+      --muted: #9aa0a6;
+      --accent: #82f;
+      --maxw: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .container{max-width:var(--maxw);margin:auto;padding:0 20px}
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(15,15,18,.6);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid #222;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      height:64px;
+    }
+
+    .brand{font-weight:700;letter-spacing:.06em}
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:22px;
+      padding:0;
+      margin:0;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      transition:0.2s;
+    }
+    nav a:hover{color:var(--text)}
+
+    /* Hero */
+    .hero{
+      padding:48px 0 12px;
+      text-align:center;
+    }
+    .title{
+      font-family:"Permanent Marker", system-ui, sans-serif;
+      line-height:1;
+      letter-spacing:.02em;
+      margin:0;
+      display:block;
+      font-size:clamp(48px, 8vw, 140px);
+    }
+    .title .year{white-space:nowrap}
+    .subtitle{
+      margin:.75rem 0 1.25rem;
+      color:var(--muted);
+      font-size:1.05rem;
+    }
+
+    /* Button */
+    .btn{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:10px;
+      background:var(--accent);
+      color:#0b0612;
+      text-decoration:none;
+      font-weight:700;
+      transition:0.25s;
+    }
+    .btn:hover{
+      transform:scale(1.05);
+      box-shadow:0 4px 15px rgba(130,130,255,0.4);
+    }
+
+    .spacer{height:40px}
+
+    /* Image card */
+    .card{
+      background:var(--card);
+      border:1px solid #23242a;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .card img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .caption{
+      padding:14px 16px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    /* Footer */
+    footer{
+      color:var(--muted);
+      border-top:1px solid #222;
+      margin-top:56px;
+    }
+    footer .container{
+      padding:22px 20px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">AMPED UP</div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="tickets.html">Tickets</a></li>
+          <li><a href="lineup.html">Lineup</a></li>
+          <li><a href="experience.html">The Experience</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="index.html#info">General Information</a></li>      
+        </ul>
+      </nav>      
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="top">
+      <h1 class="title">AMPED UP <span class="year">26</span></h1>
+      <p class="subtitle">
+        Amped Up — where R&B meets EDM, bringing together the pure Bay Area vibe.
+        A festival that proves why the Bay is the best.
+      </p>
+      <a class="btn" href="tickets.html">Get Tickets</a>
+    </section>
+
+    <div class="spacer"></div>
+
+    <section class="card" id="poster">
+      <img src="Pictures/index.png" alt="Amped Up 26 neon city poster" />
+      <div class="caption">Bringing Bay Area Music to the Bay Area.</div>
+    </section>
+
+    <div class="spacer"></div>
+
+    <section id="lineup">
+      <h2>Lineup</h2>
+      <p>Artist announcements coming soon.</p>
+    </section>
+
+    <section id="tickets">
+      <h2>Tickets</h2>
+      <p>Ticketing opens after the official announcement. Stay tuned.</p>
+    </section>
+
+    <section id="experience">
+      <h2>The Experience</h2>
+      <p>Water fountains, Kandi Making Stations, and more.</p>
+    </section>
+
+    <section id="info">
+      <h2>General Information</h2>
+      <p>Venue, schedule, camping, hotels,  
