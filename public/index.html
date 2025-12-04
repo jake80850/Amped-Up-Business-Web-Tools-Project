@@ -132,6 +132,50 @@
       padding:22px 20px;
       text-align:center;
     }
+        /* Map pill styles */
+    .map-pill-wrapper{
+      margin: 0 0 40px;
+    }
+
+    .map-pill{
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(0,0,0,.45);
+      border: 1px solid #23242a;
+      background: var(--card);
+    }
+
+    .map-pill iframe{
+      display: block;
+      width: 100%;
+      height: 260px;
+      border: 0;
+      /* Fake dark mode for the map */
+      filter: invert(90%) hue-rotate(180deg) saturate(1.2) contrast(0.95);
+    }
+
+    .map-pill-link{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid #23242a;
+      background: #181920;
+      color: var(--text);
+      font-size: 0.9rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .map-pill-link:hover{
+      background: #20212a;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0,0,0,.5);
+    }
+
   </style>
 </head>
 
@@ -167,9 +211,29 @@
 
     <section class="card" id="poster">
       <img src="Pictures/index.png" alt="Amped Up 26 neon city poster" />
-      <div class="caption">Bringing Bay Area Music to the Bay Area.</div>
+      <div class="subtitle">Bringing Bay Area Music to the San Jose Convention Center.</div>
     </section>
+  <!-- Map pill section -->
+  <section class="map-pill-wrapper" aria-label="Festival Location">
+    <div class="map-pill">
+      <!-- Replace Google Maps embed link -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3172.563589612526!2d-121.88901100000001!3d37.32916389999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fcdccb5ab47ed%3A0x736aaec6dbb2c012!2sSan%20Jose%20McEnery%20Convention%20Center!5e0!3m2!1sen!2sus!4v1764837582623!5m2!1sen!2sus"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
 
+    <a
+      class="map-pill-link"
+      href="https://maps.app.goo.gl/c9mX5WJ4AWhJs13L9" 
+      rel="noopener noreferrer"
+    >
+      Open in Google Maps
+    </a>
+  </section>
+
+  <section id="overview" style="margin-top:40px;margin-bottom:50px;">
     <div class="spacer"></div>
 
     <section id="overview" style="margin-top:40px;margin-bottom:50px;">
@@ -258,5 +322,4 @@
             <a class="btn" href="rules.html">Rules &amp; Safety</a>
           </p>
         </div>
-      </div>
-    </section>
+        

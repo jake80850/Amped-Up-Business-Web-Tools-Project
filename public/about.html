@@ -18,14 +18,26 @@
       --maxw: 900px;
     }
 
-    * { box-sizing: border-box; }
-    html, body {
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      margin: 0;
+    }
+
+    body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
       font-family: Inter, system-ui, sans-serif;
       line-height: 1.6;
       scroll-behavior: smooth;
+
+      /* keep footer at bottom */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
@@ -75,11 +87,13 @@
       max-width: var(--maxw);
       margin: 60px auto;
       padding: 0 20px;
+      flex: 1; /* push footer down */
     }
 
     h1 {
       font-family: "Permanent Marker", cursive;
       font-size: 64px;
+      margin-top: 40px;
       margin-bottom: 10px;
       color: var(--accent);
     }
@@ -106,24 +120,23 @@
       border-radius: 8px;
     }
 
+    /* BIG SPONSOR BANNER AT BOTTOM */
     .sponsors {
+      margin-top: 32px;
+      background: var(--card);
+      padding: 32px 24px;
+      border-radius: 18px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-top: 20px;
+      justify-content: center;
+      align-items: center;
     }
 
     .sponsors img {
-      height: 60px;
-      object-fit: contain;
-      filter: brightness(0) invert(1);
-      opacity: 0.7;
-      transition: 0.25s;
-    }
-
-    .sponsors img:hover {
+      width: min(100%, 700px); /* controls how big it is */
+      height: auto;
+      display: block;
+      filter: none;  /* keep original colors */
       opacity: 1;
-      transform: scale(1.05);
     }
 
     footer {
@@ -131,11 +144,12 @@
       text-align: center;
       color: var(--muted);
       padding: 20px;
-      margin-top: 80px;
+      margin-top: 40px;
       font-size: 0.9rem;
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -154,7 +168,7 @@
   </header>
 
   <main>
-    <h1>About Us</h1>
+    <h1 id="about">About Us</h1>
 
     <h2>Our Story</h2>
     <p>
@@ -166,7 +180,7 @@
 
     <h2>Organizers</h2>
     <div class="logo">
-      <img src="images/goldenvoice-logo.png" alt="Goldenvoice Logo" height="50">
+      <img src="pictures/goldenvoice-logo.png" alt="Goldenvoice Logo" height="50">
     </div>
     <p>
       Goldenvoice is the visionary organizer behind our festival, renowned for producing some of the most iconic live music experiences in the world. As a leading concert and festival promoter, Goldenvoice brings decades of expertise in curating unforgettable events that celebrate music, art, and community.
@@ -174,6 +188,15 @@
 
     <h2>Sponsors</h2>
     <div class="sponsors">
-      <img src="images/400conejo.png" alt="400 Conejos">
-      <img src="images/beatbox.png" alt="BeatBox Beverages">
-      <img src="images/casami.png" al
+      <!-- make sure this file exists at /pictures/goldenvoice-logo.png or swap to sp.png -->
+      <img src="pictures/sp.png" alt="Sponsor Logo">
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 Amped Up Festival — All rights reserved.
+  </footer>
+
+</body>
+</html>
