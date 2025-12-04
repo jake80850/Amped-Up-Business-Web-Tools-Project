@@ -1,418 +1,545 @@
-<!DOCTYPE html>
+<!-- Jake Shimada -->
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AMPED UP 26 – Tickets</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AMPED UP 26 – Tickets</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    :root{
-      --bg: #0f0f12;
-      --card: #15161a;
-      --text: #e7e7ea;
-      --muted: #9aa0a6;
-      --accent: #82f;
-      --maxw: 1100px;
-    }
-
-    *{box-sizing:border-box}
-    html,body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      scroll-behavior: smooth;
-    }
-
-    .container{max-width:var(--maxw);margin:auto;padding:0 20px}
-
-    /* Header (same as other pages) */
-    header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      background:rgba(15,15,18,.9);
-      backdrop-filter:blur(8px);
-      border-bottom:1px solid #222;
-    }
-
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      height:64px;
-    }
-
-    .brand{font-weight:700;letter-spacing:.06em}
-    nav ul{
-      list-style:none;
-      display:flex;
-      gap:22px;
-      padding:0;
-      margin:0;
-      flex-wrap:wrap;
-    }
-
-    nav a{
-      color:var(--muted);
-      text-decoration:none;
-      font-weight:600;
-      transition:0.2s;
-      font-size:.9rem;
-    }
-    nav a:hover{color:var(--text)}
-
-    /* Hero */
-    .hero{
-      padding:40px 0 20px;
-    }
-    .hero-title{
-      font-family:"Permanent Marker", system-ui, sans-serif;
-      letter-spacing:.15em;
-      font-size:clamp(30px,4vw,40px);
-      margin:0 0 6px;
-    }
-    .hero-sub{
-      margin:0;
-      color:var(--muted);
-      font-size:.9rem;
-    }
-
-    /* Banner image */
-    .banner{
-      margin:18px 0 28px;
-      border-radius:16px;
-      overflow:hidden;
-      border:1px solid #262730;
-      background:#111;
-    }
-    .banner img{
-      display:block;
-      width:100%;
-      height:auto;
-    }
-
-    /* Layout: pricing + form side by side */
-    .tickets-layout{
-      display:grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
-      gap:24px;
-    }
-
-    .panel{
-      background:var(--card);
-      border-radius:16px;
-      border:1px solid #23242a;
-      padding:18px 18px 22px;
-      box-shadow:0 10px 30px rgba(0,0,0,.35);
-    }
-
-    h2{
-      margin:0 0 10px;
-      font-size:.9rem;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      color:var(--muted);
-    }
-
-    .ticket-section{
-      margin-bottom:18px;
-    }
-    .ticket-section h3{
-      margin:0 0 4px;
-      font-size:.95rem;
-    }
-    .ticket-section p{
-      margin:0;
-      font-size:.84rem;
-      color:var(--muted);
-    }
-
-    .ticket-name-line{
-      display:flex;
-      justify-content:space-between;
-      gap:8px;
-      font-weight:600;
-    }
-    .ticket-price{
-      color:var(--text);
-    }
-
-    /* Form */
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
-    label{
-      font-size:.8rem;
-      color:var(--muted);
-      display:block;
-      margin-bottom:3px;
-    }
-    input, select, textarea{
-      width:100%;
-      padding:8px 9px;
-      border-radius:8px;
-      border:1px solid #2c2d35;
-      background:#0e0f13;
-      color:var(--text);
-      font-family:inherit;
-      font-size:.9rem;
-    }
-    textarea{
-      min-height:80px;
-      resize:vertical;
-    }
-
-    .two-col{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-
-    .btn{
-      display:inline-block;
-      margin-top:10px;
-      padding:10px 16px;
-      border-radius:10px;
-      background:var(--accent);
-      color:#0b0612;
-      text-decoration:none;
-      font-weight:700;
-      border:none;
-      cursor:pointer;
-      font-size:.95rem;
-      transition:.2s;
-    }
-    .btn:hover{
-      transform:scale(1.03);
-      box-shadow:0 4px 15px rgba(130,130,255,0.4);
-    }
-
-    .note{
-      font-size:.78rem;
-      color:var(--muted);
-      margin-top:8px;
-    }
-
-    @media (max-width: 800px){
-      .tickets-layout{
-        grid-template-columns:1fr;
+    <style>
+      :root {
+        --bg: #0f0f12;
+        --card: #15161a;
+        --text: #e7e7ea;
+        --muted: #9aa0a6;
+        --accent: #82f;
+        --maxw: 1100px;
       }
-    }
 
-    footer{
-      color:var(--muted);
-      border-top:1px solid #222;
-      margin-top:40px;
-    }
-    footer .container{
-      padding:18px 20px;
-      text-align:center;
-      font-size:.8rem;
-    }
-  </style>
-</head>
+      * {
+        box-sizing: border-box;
+      }
 
-<body>
-  <header>
-    <div class="container nav">
-      <div class="brand">AMPED UP</div>
-      <nav aria-label="Primary">
-        <ul>
-          <li><a href="tickets.html">Tickets</a></li>
-          <li><a href="lineup.html">Lineup</a></li>
-          <li><a href="experience.html">The Experience</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="index.html#info">General Information</a></li>
-        </ul>
-      </nav>      
-    </div>
-  </header>
+      html,
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        scroll-behavior: smooth;
+      }
 
-  <main class="container">
-    <section class="hero">
-      <h1 class="hero-title">TICKETS</h1>
-      <p class="hero-sub">
-        Choose your pass, drop your info, and we’ll reserve your spot at AMPED UP 26.
-      </p>
-    </section>
+      .container {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-    <!-- Banner image under hero -->
-    <div class="banner">
-      <img src="Pictures/tickets-banner.png" alt="Crowd at neon festival" />
-    </div>
+      /* Header */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(15, 15, 18, 0.9);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid #222;
+      }
 
-    <section class="tickets-layout">
-      <!-- LEFT: ticket descriptions -->
-      <div class="panel">
-        <h2>Festival Passes</h2>
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        height: 64px;
+      }
 
-        <div class="ticket-section">
-          <div class="ticket-name-line">
-            <h3>GA Pass</h3>
-            <span class="ticket-price">$199</span>
-          </div>
-          <p>General admission for both festival days. Standing room access to all stages.</p>
-        </div>
+      .brand {
+        font-weight: 700;
+        letter-spacing: 0.06em;
+      }
 
-        <div class="ticket-section">
-          <div class="ticket-name-line">
-            <h3>GA Pass + Parking</h3>
-            <span class="ticket-price">$229</span>
-          </div>
-          <p>GA access plus on-site parking for one vehicle for the full weekend.</p>
-        </div>
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 22px;
+        padding: 0;
+        margin: 0;
+        flex-wrap: wrap;
+      }
 
-        <div class="ticket-section">
-          <div class="ticket-name-line">
-            <h3>VIP Pass</h3>
-            <span class="ticket-price">$349</span>
-          </div>
-          <p>Express entry, VIP viewing area, lounge access, and exclusive merch check-in.</p>
-        </div>
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s;
+        font-size: 0.9rem;
+      }
 
-        <hr style="border:none;border-top:1px solid #262730;margin:18px 0 12px;">
+      nav a:hover {
+        color: var(--text);
+      }
 
-        <h2>Single Day</h2>
+      /* Hero */
+      .hero {
+        padding: 40px 0 20px;
+      }
 
-        <div class="ticket-section">
-          <div class="ticket-name-line">
-            <h3>1st Day Ticket</h3>
-            <span class="ticket-price">$129</span>
-          </div>
-          <p>Access to opening day, including Friday headliner and all stages.</p>
-        </div>
+      .hero-title {
+        font-family: "Permanent Marker", system-ui, sans-serif;
+        letter-spacing: 0.15em;
+        font-size: clamp(30px, 4vw, 40px);
+        margin: 0 0 6px;
+      }
 
-        <div class="ticket-section">
-          <div class="ticket-name-line">
-            <h3>2nd Day Ticket</h3>
-            <span class="ticket-price">$139</span>
-          </div>
-          <p>Access to closing day, Saturday headliner, and full festival experience.</p>
-        </div>
+      .hero-sub {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
 
-        <hr style="border:none;border-top:1px solid #262730;margin:18px 0 12px;">
+      /* Banner */
+      .banner {
+        margin: 18px 0 28px;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid #262730;
+        background: #111;
+      }
 
-        <h2>Parking</h2>
+      .banner img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
 
-        <div class="ticket-section">
-          <div class="ticket-name-line">
-            <h3>Weekend Parking Pass</h3>
-            <span class="ticket-price">$60</span>
-          </div>
-          <p>Parking for both festival days. In and out privileges not guaranteed.</p>
-        </div>
+      /* Layout: pricing + form */
+      .tickets-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
+        gap: 24px;
+      }
 
-        <div class="ticket-section">
-          <div class="ticket-name-line">
-            <h3>Single Day Parking</h3>
-            <span class="ticket-price">$35</span>
-          </div>
-          <p>Parking for one festival day only. Limited quantity available.</p>
-        </div>
-      </div>
+      .panel {
+        background: var(--card);
+        border-radius: 16px;
+        border: 1px solid #23242a;
+        padding: 18px 18px 22px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
 
-      <!-- RIGHT: order form -->
-      <div class="panel">
-        <h2>Reserve Your Tickets</h2>
+      h2 {
+        margin: 0 0 10px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+      }
 
-        <!-- This form will later post to your backend -->
-        <form id="ticketForm">
-          <div class="form-grid">
-            <div class="two-col">
-              <div>
-                <label for="firstName">First Name</label>
-                <input id="firstName" name="firstName" required />
-              </div>
-              <div>
-                <label for="lastName">Last Name</label>
-                <input id="lastName" name="lastName" required />
-              </div>
-            </div>
+      .ticket-section {
+        margin-bottom: 18px;
+      }
 
-            <div>
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required />
-            </div>
+      .ticket-section h3 {
+        margin: 0 0 4px;
+        font-size: 0.95rem;
+      }
 
-            <div class="two-col">
-              <div>
-                <label for="ticketType">Ticket Type</label>
-                <select id="ticketType" name="ticketType" required>
-                  <option value="">Select a ticket</option>
-                  <option value="GA Pass">GA Pass</option>
-                  <option value="GA Pass + Parking">GA Pass + Parking</option>
-                  <option value="VIP Pass">VIP Pass</option>
-                  <option value="1st Day Ticket">1st Day Ticket</option>
-                  <option value="2nd Day Ticket">2nd Day Ticket</option>
-                  <option value="Weekend Parking">Weekend Parking Pass</option>
-                  <option value="Single Day Parking">Single Day Parking</option>
-                </select>
-              </div>
-              <div>
-                <label for="quantity">Quantity</label>
-                <input id="quantity" name="quantity" type="number" min="1" value="1" required />
-              </div>
-            </div>
+      .ticket-section p {
+        margin: 0;
+        font-size: 0.84rem;
+        color: var(--muted);
+      }
 
-            <div>
-              <label for="notes">Notes (accessibility, group, etc.)</label>
-              <textarea id="notes" name="notes"></textarea>
-            </div>
+      .ticket-name-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        font-weight: 600;
+      }
 
-            <button type="submit" class="btn">Submit Reservation</button>
-            <div class="note" id="formMessage"></div>
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
+      .ticket-price {
+        color: var(--text);
+      }
 
-  <footer>
-    <div class="container">
-      © AMPED UP 26 · Tickets & Reservations (mock site for project)
-    </div>
-  </footer>
+      /* Form */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
 
-  <!-- Frontend JS to send data to your backend (see Mongo section below) -->
-  <script>
-    document.getElementById('ticketForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
+      label {
+        font-size: 0.8rem;
+        color: var(--muted);
+        display: block;
+        margin-bottom: 3px;
+      }
 
-      const form = e.target;
-      const data = {
-        firstName: form.firstName.value,
-        lastName: form.lastName.value,
-        email: form.email.value,
-        ticketType: form.ticketType.value,
-        quantity: Number(form.quantity.value),
-        notes: form.notes.value
-      };
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px 9px;
+        border-radius: 8px;
+        border: 1px solid #2c2d35;
+        background: #0e0f13;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.9rem;
+      }
 
-      try {
-        const res = await fetch('/api/tickets', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(data)
-        });
+      textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
 
-        const msg = document.getElementById('formMessage');
-        if (res.ok) {
-          msg.textContent = 'Reservation submitted! (On a real server this would be saved.)';
-        } else {
-          msg.textContent = 'There was an error submitting. Please try again.';
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 16px;
+        border-radius: 10px;
+        background: var(--accent);
+        color: #0b0612;
+        text-decoration: none;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: 0.2s;
+      }
+
+      .btn:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 15px rgba(130, 130, 255, 0.4);
+      }
+
+      .note {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+
+      .note.error {
+        color: #f87171;
+      }
+
+      .note.success {
+        color: #4ade80;
+      }
+
+      @media (max-width: 800px) {
+        .tickets-layout {
+          grid-template-columns: 1fr;
         }
-      } catch (err) {
-        document.getElementById('formMessage').textContent =
-          'Network error – is the backend running?';
       }
-    });
-  </script>
-</body>
+
+      footer {
+        color: var(--muted);
+        border-top: 1px solid #222;
+        margin-top: 40px;
+      }
+
+      footer .container {
+        padding: 18px 20px;
+        text-align: center;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">AMPED UP</div>
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="tickets.html">Tickets</a></li>
+            <li><a href="lineup.html">Lineup</a></li>
+            <li><a href="experience.html">The Experience</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#info">General Information</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1 class="hero-title">TICKETS</h1>
+        <p class="hero-sub">
+          Choose your pass, drop your info, and we’ll reserve your spot at AMPED UP 26.
+        </p>
+      </section>
+
+      <!-- Banner image under hero -->
+      <div class="banner">
+        <img src="Pictures/tickets-banner.png" alt="Crowd at neon festival" />
+      </div>
+
+      <section class="tickets-layout">
+        <!-- LEFT: ticket descriptions -->
+        <div class="panel">
+          <h2>Festival Passes</h2>
+
+          <div class="ticket-section">
+            <div class="ticket-name-line">
+              <h3>GA Pass</h3>
+              <span class="ticket-price">$199</span>
+            </div>
+            <p>
+              General admission for both festival days. Standing room access to all stages.
+            </p>
+          </div>
+
+          <div class="ticket-section">
+            <div class="ticket-name-line">
+              <h3>GA Pass + Parking</h3>
+              <span class="ticket-price">$229</span>
+            </div>
+            <p>
+              GA access plus on-site parking for one vehicle for the full weekend.
+            </p>
+          </div>
+
+          <div class="ticket-section">
+            <div class="ticket-name-line">
+              <h3>VIP Pass</h3>
+              <span class="ticket-price">$349</span>
+            </div>
+            <p>
+              Express entry, VIP viewing area, lounge access, and exclusive merch check-in.
+            </p>
+          </div>
+
+          <hr
+            style="
+              border: none;
+              border-top: 1px solid #262730;
+              margin: 18px 0 12px;
+            "
+          />
+
+          <h2>Single Day</h2>
+
+          <div class="ticket-section">
+            <div class="ticket-name-line">
+              <h3>1st Day Ticket</h3>
+              <span class="ticket-price">$129</span>
+            </div>
+            <p>
+              Access to opening day, including Friday headliner and all stages.
+            </p>
+          </div>
+
+          <div class="ticket-section">
+            <div class="ticket-name-line">
+              <h3>2nd Day Ticket</h3>
+              <span class="ticket-price">$139</span>
+            </div>
+            <p>
+              Access to closing day, Saturday headliner, and full festival experience.
+            </p>
+          </div>
+
+          <hr
+            style="
+              border: none;
+              border-top: 1px solid #262730;
+              margin: 18px 0 12px;
+            "
+          />
+
+          <h2>Parking</h2>
+
+          <div class="ticket-section">
+            <div class="ticket-name-line">
+              <h3>Weekend Parking Pass</h3>
+              <span class="ticket-price">$60</span>
+            </div>
+            <p>
+              Parking for both festival days. In and out privileges not guaranteed.
+            </p>
+          </div>
+
+          <div class="ticket-section">
+            <div class="ticket-name-line">
+              <h3>Single Day Parking</h3>
+              <span class="ticket-price">$35</span>
+            </div>
+            <p>
+              Parking for one festival day only. Limited quantity available.
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT: order form -->
+        <div class="panel">
+          <h2>Reserve Your Tickets</h2>
+
+          <form id="ticketForm" novalidate>
+            <div class="form-grid">
+              <div class="two-col">
+                <div>
+                  <label for="firstName">First Name</label>
+                  <input id="firstName" name="firstName" required />
+                </div>
+                <div>
+                  <label for="lastName">Last Name</label>
+                  <input id="lastName" name="lastName" required />
+                </div>
+              </div>
+
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+
+              <div class="two-col">
+                <div>
+                  <label for="ticketType">Ticket Type</label>
+                  <select id="ticketType" name="ticketType" required>
+                    <option value="">Select a ticket</option>
+                    <option value="GA Pass">GA Pass</option>
+                    <option value="GA Pass + Parking">GA Pass + Parking</option>
+                    <option value="VIP Pass">VIP Pass</option>
+                    <option value="1st Day Ticket">1st Day Ticket</option>
+                    <option value="2nd Day Ticket">2nd Day Ticket</option>
+                    <option value="Weekend Parking Pass">Weekend Parking Pass</option>
+                    <option value="Single Day Parking">Single Day Parking</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="quantity">Quantity</label>
+                  <input
+                    id="quantity"
+                    name="quantity"
+                    type="number"
+                    min="1"
+                    max="20"
+                    value="1"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="notes">Notes (accessibility, group, etc.)</label>
+                <textarea id="notes" name="notes"></textarea>
+              </div>
+
+              <div id="formMessage" class="note"></div>
+
+              <div>
+                <button type="submit" class="btn" id="submitButton">
+                  Submit Reservation
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        © AMPED UP 26 · Tickets & Reservations (mock site for project)
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("ticketForm");
+        const msg = document.getElementById("formMessage");
+        const submitBtn = document.getElementById("submitButton");
+
+        async function handleSubmit(e) {
+          e.preventDefault();
+
+          msg.textContent = "";
+          msg.className = "note";
+
+          const data = {
+            firstName: document.getElementById("firstName").value.trim(),
+            lastName: document.getElementById("lastName").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            ticketType: document.getElementById("ticketType").value,
+            quantity: Number(document.getElementById("quantity").value),
+            notes: document.getElementById("notes").value || "",
+          };
+
+          // Simple front-end checks
+          if (!data.firstName || !data.lastName || !data.email || !data.ticketType) {
+            msg.textContent = "Please fill in all required fields.";
+            msg.classList.add("error");
+            return;
+          }
+
+          if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) {
+            msg.textContent = "Please enter a valid email address.";
+            msg.classList.add("error");
+            return;
+          }
+
+          if (!Number.isFinite(data.quantity) || data.quantity < 1 || data.quantity > 20) {
+            msg.textContent = "Quantity must be between 1 and 20.";
+            msg.classList.add("error");
+            return;
+          }
+
+          msg.textContent = "Submitting...";
+          msg.className = "note";
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Submitting…";
+
+          try {
+            const res = await fetch("/api/tickets", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+
+            const body = await res.json().catch(() => ({}));
+
+            if (!res.ok) {
+              console.error("Server error:", body);
+              const backendMsg =
+                body?.errors?.length
+                  ? body.errors.join(" • ")
+                  : body?.message || "Submission failed.";
+              msg.textContent = backendMsg;
+              msg.className = "note error";
+            } else {
+              console.log("Success:", body);
+              msg.textContent = "Reservation submitted successfully!";
+              msg.className = "note success";
+              form.reset();
+              document.getElementById("quantity").value = 1;
+            }
+          } catch (err) {
+            console.error("Network error:", err);
+            msg.textContent =
+              "Network error – please check that the backend is running and try again.";
+            msg.className = "note error";
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit Reservation";
+          }
+        }
+
+        form.addEventListener("submit", handleSubmit);
+      });
+    </script>
+  </body>
 </html>
