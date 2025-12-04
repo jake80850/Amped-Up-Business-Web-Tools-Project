@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMPED UP 26 – Rules & Safety</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f0f12;
+      --card: #15161a;
+      --text: #e7e7ea;
+      --muted: #9aa0a6;
+      --accent: #82f;
+      --maxw: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      scroll-behavior:smooth;
+    }
+
+    .container{max-width:var(--maxw);margin:auto;padding:0 20px}
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(15,15,18,.9);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid #222;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      height:64px;
+    }
+
+    .brand{font-weight:700;letter-spacing:.06em}
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:22px;
+      padding:0;
+      margin:0;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      transition:0.2s;
+      font-size:.9rem;
+    }
+    nav a:hover{color:var(--text)}
+
+    /* Hero */
+    .hero{
+      padding:40px 0 20px;
+    }
+    .hero-title{
+      font-family:"Permanent Marker", system-ui, sans-serif;
+      letter-spacing:.15em;
+      font-size:clamp(30px,4vw,40px);
+      margin:0 0 6px;
+    }
+    .hero-sub{
+      margin:0;
+      color:var(--muted);
+      font-size:.9rem;
+      max-width:650px;
+    }
+
+    /* Layout */
+    .rules-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1.6fr) minmax(0,1.6fr);
+      gap:24px;
+      margin-bottom:30px;
+    }
+
+    .panel{
+      background:var(--card);
+      border-radius:16px;
+      border:1px solid #23242a;
+      padding:18px 18px 22px;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size:.9rem;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--muted);
+    }
+
+    h3{
+      margin:10px 0 6px;
+      font-size:.95rem;
+    }
+
+    p{
+      margin:0 0 8px;
+      font-size:.84rem;
+      color:var(--muted);
+    }
+
+    .list-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:6px;
+      margin:8px 0 0;
+      padding-left:18px;
+    }
+
+    .list-grid li{
+      font-size:.84rem;
+      color:var(--text);
+      margin-bottom:4px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:.8rem;
+    }
+
+    .section-divider{
+      border:none;
+      border-top:1px solid #262730;
+      margin:16px 0 8px;
+    }
+
+    .badge-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:6px;
+    }
+
+    .badge{
+      font-size:.7rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid #2e2f3a;
+      color:var(--muted);
+    }
+
+    ul.code-list{
+      padding-left:18px;
+      margin:6px 0 0;
+    }
+
+    ul.code-list li{
+      font-size:.84rem;
+      margin-bottom:5px;
+    }
+
+    @media (max-width: 800px){
+      .rules-layout{
+        grid-template-columns:1fr;
+      }
+    }
+
+    footer{
+      color:var(--muted);
+      border-top:1px solid #222;
+      margin-top:40px;
+    }
+    footer .container{
+      padding:18px 20px;
+      text-align:center;
+      font-size:.8rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">AMPED UP</div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="tickets.html">Tickets</a></li>
+          <li><a href="lineup.html">Lineup</a></li>
+          <li><a href="experience.html">The Experience</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="index.html#info">General Information</a></li>
+          <!-- You can update other pages to add this link too -->
+          <li><a href="rules-safety.html">Rules &amp; Safety</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 class="hero-title">RULES &amp; SAFETY</h1>
+      <p class="hero-sub">
+        Read this before you roll up. These guidelines keep the vibes high, the grounds safe, 
+        and everyone around you able to enjoy AMPED UP 26.
+      </p>
+    </section>
+
+    <section class="rules-layout">
+      <!-- LEFT COLUMN: Allowed / Not Allowed -->
+      <div class="panel">
+        <h2>What You Can Bring</h2>
+
+        <div class="badge-row">
+          <span class="badge">ENTRY CHECKLIST</span>
+        </div>
+
+        <ul class="list-grid">
+          <li>Clear bags up to 12&quot; x 6&quot; x 12&quot;</li>
+          <li>Small clutches/fanny packs up to 6.5&quot; x 4.5&quot; (do not need to be clear)</li>
+          <li>Hydration packs (must be empty upon entry, 2L max)</li>
+          <li>Empty reusable water bottles (plastic or metal)</li>
+          <li>Non-aerosol sunscreen (travel size, 3.4 oz max)</li>
+          <li>Hats, sunglasses, bandanas</li>
+          <li>Blankets or beach towels</li>
+          <li>Earplugs</li>
+          <li>Portable phone chargers/power banks</li>
+          <li>Disposable cameras or small point-and-shoot cameras (no detachable lenses)</li>
+          <li>Sealed snacks (e.g., granola bars, trail mix)</li>
+          <li>Prescription medications (must be in original container with matching ID)</li>
+          <li>Service animals (with proper documentation)</li>
+        </ul>
+
+        <hr class="section-divider">
+
+        <h2>Items Not Allowed</h2>
+        <p class="muted">Security will enforce these rules. Violation may result in denied entry or removal without refund.</p>
+
+        <ul class="list-grid">
+          <li>NO bags larger than 12&quot; x 6&quot; x 12&quot; or non-clear bags (except small clutches/fanny packs up to 6.5&quot; x 4.5&quot;)</li>
+          <li>NO outside food and beverages (including alcohol, energy drinks, cans, or glass bottles)</li>
+          <li>NO glass containers of any kind</li>
+          <li>NO weapons or weapon-like items (guns, knives, scissors, pepper spray, tasers, brass knuckles)</li>
+          <li>NO illegal substances or drug paraphernalia</li>
+          <li>NO aerosol products (spray sunscreen, bug spray, perfumes)</li>
+          <li>NO professional audio/video/photography equipment (detachable lenses, tripods, monopods, drones, GoPros if restricted)</li>
+          <li>NO laser pointers, selfie sticks, totems over height limits, flagpoles, or tripods</li>
+          <li>NO fireworks, explosives, sparklers, or flammable liquids</li>
+          <li>NO pets or emotional support animals (service animals only permitted)</li>
+          <li>NO large sports gear (skateboards, scooters, bikes, hoverboards, balls, frisbees)</li>
+          <li>NO musical instruments (drums, horns, etc.)</li>
+          <li>NO large inflatables, furniture, hammocks, or air mattresses</li>
+          <li>NO noise-making devices (air horns, megaphones, portable speakers)</li>
+          <li>NO chains, spiked jewelry, studded belts, or other items that can be used as weapons</li>
+          <li>NO walkie-talkies, two-way radios, or signal jammers</li>
+          <li>NO unauthorized vending items (merch, food, flyers, promotional materials)</li>
+          <li>NO water guns, balloons, or spray bottles</li>
+          <li>NO masks or full-face coverings (unless for health/safety)</li>
+          <li>NO unmanned aerial vehicles (drones, remote-controlled devices)</li>
+        </ul>
+      </div>
+
+      <!-- RIGHT COLUMN: Health, Medical, Code of Conduct -->
+      <div class="panel">
+        <h2>Health &amp; Safety Acknowledgement</h2>
+        <p>
+          By entering the festival grounds, you acknowledge and agree to follow all health and safety rules set forth by the organizers. 
+          This includes complying with security screenings, respecting personal space, staying hydrated, and seeking medical assistance if needed.
+        </p>
+        <p>
+          You understand that participation in large events carries inherent risks, and you voluntarily assume responsibility for your own 
+          health and safety while attending. Festival staff, medical teams, and security are available to support a safe environment, and 
+          failure to follow guidelines may result in removal without refund.
+        </p>
+
+        <hr class="section-divider">
+
+        <h2>On-Site Medical Services</h2>
+        <p>
+          Your health and well-being are our highest priority. Professional medical staff, including licensed EMTs and nurses, are stationed 
+          on-site and equipped to respond to both minor and serious health concerns.
+        </p>
+        <p>
+          First Aid Tents are clearly marked and located near main entrances, central pathways, and major stage areas for easy access. 
+          These tents are stocked with basic supplies for common issues like dehydration, heat exhaustion, cuts, or sprains, and are also 
+          prepared to handle emergency situations until additional medical services arrive if necessary.
+        </p>
+        <p>
+          In addition to staffed tents, roaming medical teams will be moving through festival grounds to assist attendees directly in the crowd. 
+          If you or someone near you requires help, you can alert any staff member, volunteer, or security personnel, who will quickly contact 
+          medical support. All medical services at the festival are free of charge, confidential, and available to everyone.
+        </p>
+        <p>
+          We strongly encourage attendees to stay hydrated, wear sun protection, and take breaks in shaded areas. Please don’t wait until an issue 
+          becomes severe—seek assistance right away if you feel unwell. Our team is here to ensure a safe and enjoyable experience for all.
+        </p>
+
+        <hr class="section-divider">
+
+        <h2>Festival Code of Conduct</h2>
+        <p class="muted">
+          We are committed to creating a safe, inclusive, and enjoyable environment for all attendees, staff, and performers. 
+          By entering the festival grounds, you agree to follow these guidelines:
+        </p>
+
+        <ul class="code-list">
+          <li><strong>Respect others</strong> – Treat fellow attendees, staff, and performers with kindness and courtesy.</li>
+          <li><strong>Zero tolerance for harassment</strong> – Harassment, discrimination, or abusive behavior of any kind will not be tolerated.</li>
+          <li><strong>Keep it safe</strong> – Follow security instructions, stay aware of your surroundings, and look out for one another.</li>
+          <li><strong>Celebrate responsibly</strong> – Enjoy the festival without endangering yourself or others. Excessive intoxication or unsafe behavior may result in removal.</li>
+          <li><strong>Protect the space</strong> – Help keep the festival grounds clean. Dispose of waste properly and respect shared areas.</li>
+          <li><strong>No unauthorized sales or promotions</strong

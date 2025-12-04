@@ -86,21 +86,49 @@ app.post('/api/tickets', async (req, res) => {
 
     if (errors.length) return res.status(400).json({ message: 'Validation failed', errors });
 
-    const ticket = await Ticket.create({
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      email: email.trim(),
-      ticketType,
-      quantity: Number(quantity),
-      notes: (notes ?? '').trim(),
+    app.post('/api/tickets', async (req, res) => {
+      try {
+        const { firstName, lastName, email, ticketType, quantity, notes } = req.body;
+    
+        // Optional validation
+        const errors = [];
+        if (!firstName || !firstName.trim()) errors.push("First name is required.");
+        if (!lastName || !lastName.trim()) errors.push("Last name is required.");
+        if (!email || !email.trim()) errors.push("Email is required.");
+        if (!ticketType) errors.push("Ticket type is required.");
+        if (!quantity || Number(quantity) < 1) errors.push("Quantity must be at least 1.");
+    
+        if (errors.length > 0) {
+          return res.status(400).json({ message: "Validation failed", errors });
+        }
+    
+        // ⭐ CREATE the ticket in MongoDB
+        const ticket = await Ticket.create({
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
+          ticketType,
+          quantity: Number(quantity),
+          notes: (notes ?? '').trim(),
+        });
+    
+        // ⭐ SEND AUTOMATED EMAILS (fire-and-forget)
+        sendTicketEmails(ticket).catch(err => {
+          console.error("Error sending ticket emails:", err);
+        });
+    
+        // ⭐ SEND RESPONSE BACK TO FRONTEND
+        return res.status(201).json({
+          message: "Saved",
+          id: ticket._id
+        });
+    
+      } catch (err) {
+        console.error("POST /api/tickets error:", err);
+        return res.status(500).json({ message: "Error saving ticket" });
+      }
     });
-
-    return res.status(201).json({ message: 'Saved', id: ticket._id });
-  } catch (err) {
-    console.error('POST /api/tickets error:', err);
-    return res.status(500).json({ message: 'Error saving ticket' });
-  }
-});
+    
 
 // --- (Optional) Admin read: list last 50 reservations ---
 app.get('/api/tickets', async (req, res) => {
@@ -112,6 +140,52 @@ app.get('/api/tickets', async (req, res) => {
     res.status(500).json({ message: 'Error fetching tickets' });
   }
 });
+// --- CSV export of all tickets (for admin download) ---
+app.get('/api/tickets/export', async (req, res) => {
+  try {
+    const docs = await Ticket.find().sort({ createdAt: -1 }).lean();
+
+    const header = [
+      'createdAt',
+      'firstName',
+      'lastName',
+      'email',
+      'ticketType',
+      'quantity',
+      'notes',
+    ];
+
+    const escape = (value: any) => {
+      if (value == null) return '';
+      const str = String(value).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const rows = docs.map((t) => [
+      escape(t.createdAt),
+      escape(t.firstName),
+      escape(t.lastName),
+      escape(t.email),
+      escape(t.ticketType),
+      escape(t.quantity),
+      escape(t.notes),
+    ]);
+
+    const csvLines = [
+      header.join(','),
+      ...rows.map((r) => r.join(',')),
+    ];
+
+    const csv = csvLines.join('\n');
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="tickets.csv"');
+    res.send(csv);
+  } catch (err) {
+    console.error('GET /api/tickets/export error:', err);
+    res.status(500).json({ message: 'Error exporting tickets' });
+  }
+});
 
 // --- Serve static site (put your HTML files in /public) ---
 app.use(express.static('public')); // e.g., public/tickets.html
@@ -121,3 +195,53 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
+
+
+// --- Email helper ---
+async function sendTicketEmails(ticket: any) {
+  const from = process.env.TICKETS_FROM || 'tickets@example.com';
+  const adminEmail = process.env.ADMIN_EMAIL;
+
+  const subject = `Amped Up 26 Reservation – ${ticket.firstName} ${ticket.lastName}`;
+  const summary = `
+Name: ${ticket.firstName} ${ticket.lastName}
+Email: ${ticket.email}
+Ticket Type: ${ticket.ticketType}
+Quantity: ${ticket.quantity}
+Notes: ${ticket.notes || '(none)'}
+Created At: ${ticket.createdAt}
+  `.trim();
+
+  // Email to guest
+  const userMail = {
+    from,
+    to: ticket.email,
+    subject: 'Your Amped Up 26 Ticket Reservation ✨',
+    text: `Hey ${ticket.firstName},
+
+Thanks for reserving tickets for Amped Up 26!
+
+Here’s your reservation summary:
+${summary}
+
+This site is a project demo, so no payment has been collected yet.
+If you have questions, just reply to this email.
+
+– Amped Up 26 Team`,
+  };
+
+  // Optional: email to admin
+  const adminMail = adminEmail
+    ? {
+        from,
+        to: adminEmail,
+        subject: `NEW Ticket Reservation – ${ticket.firstName} ${ticket.lastName}`,
+        text: summary,
+      }
+    : null;
+
+  await transporter.sendMail(userMail);
+  if (adminMail) {
+    await transporter.sendMail(adminMail);
+  }
+}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amped Up • Admin Tickets</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Permanent+Marker&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0f0f12;
+      --text: #e7e7ea;
+      --muted: #9aa0a6;
+      --accent: #82f;
+      --card: #15161a;
+      --danger: #ff4b6a;
+      --maxw: 1000px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1a1630 0, #0b0c10 45%, #050509 100%);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      background: rgba(10,10,15,0.9);
+      border-bottom: 1px solid #222;
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-main {
+      font-family: "Permanent Marker", cursive;
+      font-size: 26px;
+      color: var(--accent);
+    }
+    .brand-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--muted);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .7rem;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: .2s;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    main {
+      max-width: var(--maxw);
+      margin: 32px auto;
+      padding: 0 20px 40px;
+    }
+
+    h1 {
+      font-family: "Permanent Marker", cursive;
+      font-size: 40px;
+      margin: 0 0 4px;
+      color: var(--accent);
+    }
+
+    .sub {
+      margin: 0 0 18px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .panel {
+      background: linear-gradient(135deg, #161722, #111119);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.6);
+      margin-bottom: 20px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--muted);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 7px 14px;
+      background: var(--accent);
+      color: #0b0612;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: .18s;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid #2a2b35;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(130,130,255,0.35);
+    }
+
+    button.secondary:hover {
+      box-shadow: none;
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .status {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .status.ok {
+      color: #7be97b;
+    }
+    .status.error {
+      color: var(--danger);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid #23232d;
+      background: radial-gradient(circle at top left, #1d1b33 0, #0d0d15 55%, #050509 100%);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      min-width: 700px;
+    }
+
+    thead {
+      background: rgba(16,16,30,0.9);
+    }
+
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #23232d;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--muted);
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(255,255,255,0.01);
+    }
+
+    tbody tr:hover {
+      background: rgba(130,130,255,0.08);
+    }
+
+    .notes-cell {
+      white-space: normal;
+      max-width: 260px;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      background: rgba(130,130,255,0.1);
+      border: 1px solid rgba(130,130,255,0.5);
+      color: #d8d8ff;
+    }
+
+    footer {
+      border-top: 1px solid #222;
+      text-align: center;
+      color: var(--muted);
+      padding: 14px 20px 22px;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 720px) {
+      h1 {
+        font-size: 32px;
+      }
+      .panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        display: none; /* keep admin simple on mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // 🔐 Simple front-end "password" – fine for a class project
+    const ADMIN_PASSWORD = "ampedup-admin-26"; // change this to whatever you want
+    const alreadyAuthed = sessionStorage.getItem("amped_admin_ok");
+
+    if (alreadyAuthed !== "yes") {
+      const entered = prompt("Admin access only. Enter password:");
+
+      if (entered !== ADMIN_PASSWORD) {
+        document.body.innerHTML = "<div style='display:flex;align-items:center;justify-content:center;min-height:100vh;background:#050509;color:#f66;font-family:system-ui,sans-serif;text-align:center;padding:20px;'>Access denied.</div>";
+        throw new Error("Not authorized for admin page");
+      }
+
+      sessionStorage.setItem("amped_admin_ok", "yes");
+    }
+  </script>
+
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span class="brand-main">AMPED UP</span>
+        <span class="brand-sub">Admin • Tickets Dashboard</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="tickets.html">Tickets</a></li>
+          <li><a href="index.html">Public Site</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Ticket Dashboard</h1>
+    <p class="sub">
+      View recent reservations, sanity-check quantities, and export everything to CSV for your spreadsheets.
+    </p>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Reservations</h2>
+        <div class="btn-row">
+          <button id="refreshBtn">Refresh</button>
+          <button class="secondary" id="csvBtn">Download CSV</button>
+        </div>
+      </div>
+      <div id="status" class="status">Loading latest reservations…</div>
+
+      <div class="table-wrap" style="margin-top:10px;">
+        <table id="ticketsTable">
+          <thead>
+            <tr>
+              <th>Created</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Ticket</th>
+              <th>Qty</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Internal admin view · Amped Up 26 (class project)
+  </footer>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const tableBody = document.querySelector('#ticketsTable tbody');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const csvBtn = document.getElementById('csvBtn');
+
+    function formatDate(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return iso;
+      return d.toLocaleString();
+    }
+
+    async function loadTickets() {
+      statusEl.textContent = 'Loading latest reservations…';
+      statusEl.className = 'status';
+
+      try {
+        const res = await fetch('/api/tickets');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const tickets = await res.json();
+
+        tableBody.innerHTML = '';
+
+        if (!tickets.length) {
+          const row = document.createElement('tr');
+          const cell = document.createElement('td');
+          cell.colSpan = 6;
+          cell.textContent = 'No reservations yet.';
+          cell.style.textAlign = 'center';
+          cell.style.color = '#888';
+          row.appendChild(cell);
+          tableBody.appendChild(row);
+        } else {
+          tickets.forEach(t => {
+            const tr = document.createElement('tr');
+
+            const createdTd = document.createElement('td');
+            createdTd.textContent = formatDate(t.createdAt);
+            tr.appendChild(createdTd);
+
+            const nameTd = document.createElement('td');
+            nameTd.textContent = `${t.firstName} ${t.lastName}`;
+            tr.appendChild(nameTd);
+
+            const emailTd = document.createElement('td');
+            emailTd.textContent = t.email;
+            tr.appendChild(emailTd);
+
+            const ticketTd = document.createElement('td');
+            const pill = document.createElement('span');
+            pill.className = 'pill';
+            pill.textContent = t.ticketType;
+            ticketTd.appendChild(pill);
+            tr.appendChild(ticketTd);
+
+            const qtyTd = document.createElement('td');
+            qtyTd.textContent = t.quantity;
+            tr.appendChild(qtyTd);
+
+            const notesTd = document.createElement('td');
+            notesTd.className = 'notes-cell';
+            notesTd.textContent = t.notes || '';
+            tr.appendChild(notesTd);
+
+            tableBody.appendChild(tr);
+          });
+        }
+
+        statusEl.textContent = `Loaded ${tickets.length} reservations (latest first).`;
+        statusEl.className = 'status ok';
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Error loading reservations. Check the server / console.';
+        statusEl.className = 'status error';
+      }
+    }
+
+    refreshBtn.addEventListener('click', loadTickets);
+
+    csvBtn.addEventListener('click', () => {
+      // Trigger download from backend
+      window.location.href = '/api/tickets/export';
+    });
+
+    // Load on first open
+    loadTickets();
+  </script>
+</body>
+</html>
